@@ -174,8 +174,6 @@ else
     if [ ! -e "$BC_HOME/dotmatrix" ]; then
         git clone git@github.com:bigcartel/dotmatrix.git
         pushd dotmatrix > /dev/null
-        # TODO: Get this out of a branch
-        git checkout updates
         bin/install
     else
         pushd dotmatrix > /dev/null
