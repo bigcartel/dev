@@ -50,7 +50,7 @@ brew_install "orbstack" "/Applications/OrbStack.app"
 brew_install "gh" "/opt/homebrew/bin/gh"
 brew_install "mas" "/opt/homebrew/bin/mas"
 brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
-brew_install "rtx" "/opt/homebrew/bin/rtx"
+brew_install "mise" "/opt/homebrew/bin/mise"
 brew_install "1password-cli" "/opt/homebrew/bin/op"
 
 if [ ! -e "/Applications/Tailscale.app" ]; then
