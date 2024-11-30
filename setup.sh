@@ -191,15 +191,15 @@ open -a OrbStack
 echo -ne "${YELLOW}Press enter when you've completed the Orbstack setup...${NOCOLOR}"
 read
 
+echo -e "${GREEN}All base software installed and configured${NOCOLOR}"
+
 if [ -e "$BC_HOME/compose-dev" ]; then
     echo -e "${YELLOW}compose-dev repo present. Not attempting redundant setup${NOCOLOR}"
 else
     echo -e "${GREEN}Setting up compose dev...${NOCOLOR}"
     git clone git@github.com:bigcartel/compose-dev.git
-    pushd compose-dev > /dev/null
 
-    echo -e "${YELLOW}I'm about to change to $BC_HOME/compose_dev and run ./setup.sh${NOCOLOR}"
-    echo -e "${YELLOW}If this fails partway through for some reason it's safe to correct errors and re-run this script${NOCOLOR}"
-
-    ./setup.sh
+    echo -e "${YELLOW}The final step is to cd to $BC_HOME/compose_dev and run ./setup.sh${NOCOLOR}"
+    echo -e "${YELLOW}compose_dev is the base checkout of our docker-compose based dev environment${NOCOLOR}"
+    echo -e "${YELLOW}The setup script will build container images and bootstap the actual dev environment${NOCOLOR}"
 fi
