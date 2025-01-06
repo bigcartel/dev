@@ -199,7 +199,7 @@ else
     echo -e "${GREEN}Setting up compose dev...${NOCOLOR}"
     git clone git@github.com:bigcartel/compose-dev.git
 
-    echo -e "${YELLOW}The final step is to cd to $BC_HOME/compose_dev and run ./setup.sh${NOCOLOR}"
-    echo -e "${YELLOW}compose_dev is the base checkout of our docker-compose based dev environment${NOCOLOR}"
+    echo -e "${YELLOW}The final step is to cd to $BC_HOME/compose-dev and run ./setup.sh${NOCOLOR}"
+    echo -e "${YELLOW}compose-dev is the base checkout of our docker-compose based dev environment${NOCOLOR}"
     echo -e "${YELLOW}The setup script will build container images and bootstap the actual dev environment${NOCOLOR}"
 fi
