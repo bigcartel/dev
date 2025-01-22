@@ -5,6 +5,9 @@ RED="\033[1;31m"
 GREEN="\033[1;32m"
 YELLOW="\033[1;33m"
 NOCOLOR="\033[0m"
+# avoids an edgecase where employees do not have 1password accounts set up
+BC_RAW_1PASS_ID="CMUGFRT7Y5BRJMYKQIXJDO2654"
+
 
 function abort {
     echo -e "\n${RED}Exiting early, please re-run after correcting errors!${NOCOLOR}"
@@ -100,7 +103,7 @@ else
 fi
 
 echo -ne "${YELLOW}Testing 1Password CLI...${NOCOLOR} "
-if op account get --account bigcartel > /dev/null 2>&1; then
+if op account get --account $BC_RAW_1PASS_ID > /dev/null 2>&1; then
     echo -e "${GREEN}Success${NOCOLOR}"
 else
     echo -e "${RED}Failed${NOCOLOR}"
@@ -108,8 +111,10 @@ else
     abort
 fi
 
+# avoids an edgecase where employees do not have 1password accounts set up
+BC_RAW_1PASS_ID="CMUGFRT7Y5BRJMYKQIXJDO2654"
 echo -ne "${YELLOW}Testing Access to developer vaults...${NOCOLOR} "
-if op --account bigcartel item get "Rails Secrets [admin]" > /dev/null 2>&1; then
+if op --account $BIGCARTEL_RAW_1PASS_ID item get "Rails Secrets [admin]" > /dev/null 2>&1; then
     echo -e "${GREEN}Success${NOCOLOR}"
 else
     echo -e "${RED}Failed${NOCOLOR}"
