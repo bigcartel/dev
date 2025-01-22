@@ -100,9 +100,7 @@ else
 fi
 
 echo -ne "${YELLOW}Testing 1Password CLI...${NOCOLOR} "
-last_exit=0
-op account get --account bigcartel > /dev/null || last_exit=$?
-if [ $last_exit -eq 0 ]; then
+if op account get --account bigcartel > /dev/null 2>&1; then
     echo -e "${GREEN}Success${NOCOLOR}"
 else
     echo -e "${RED}Failed${NOCOLOR}"
@@ -111,9 +109,7 @@ else
 fi
 
 echo -ne "${YELLOW}Testing Access to developer vaults...${NOCOLOR} "
-last_exit=0
-op --account bigcartel item get "Rails Secrets [admin]" > /dev/null || last_exit=$?
-if [ $last_exit -eq 0 ]; then
+if op --account bigcartel item get "Rails Secrets [admin]" > /dev/null 2>&1; then
     echo -e "${GREEN}Success${NOCOLOR}"
 else
     echo -e "${RED}Failed${NOCOLOR}"
