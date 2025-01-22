@@ -8,7 +8,6 @@ NOCOLOR="\033[0m"
 # avoids an edgecase where employees do not have 1password accounts set up
 BC_RAW_1PASS_ID="CMUGFRT7Y5BRJMYKQIXJDO2654"
 
-
 function abort {
     echo -e "\n${RED}Exiting early, please re-run after correcting errors!${NOCOLOR}"
     exit 1
