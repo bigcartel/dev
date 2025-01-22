@@ -111,7 +111,6 @@ else
 fi
 
 # avoids an edgecase where employees do not have 1password accounts set up
-BC_RAW_1PASS_ID="CMUGFRT7Y5BRJMYKQIXJDO2654"
 echo -ne "${YELLOW}Testing Access to developer vaults...${NOCOLOR} "
 if op --account $BIGCARTEL_RAW_1PASS_ID item get "Rails Secrets [admin]" > /dev/null 2>&1; then
     echo -e "${GREEN}Success${NOCOLOR}"
