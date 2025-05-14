@@ -48,6 +48,13 @@ function brew_install {
     fi
 }
 
+if brew list libyaml &>/dev/null; then
+  echo "libyaml is already installed, skipping."
+else
+  echo "Installing libyaml..."
+  brew install --quiet libyaml
+fi
+
 brew_install "orbstack" "/Applications/OrbStack.app"
 brew_install "gh" "/opt/homebrew/bin/gh"
 brew_install "mas" "/opt/homebrew/bin/mas"
