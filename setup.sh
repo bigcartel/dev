@@ -55,12 +55,12 @@ else
   brew install --quiet libyaml
 fi
 
-brew_install "orbstack" "/Applications/OrbStack.app"
+brew_install "1password-cli" "/opt/homebrew/bin/op"
 brew_install "gh" "/opt/homebrew/bin/gh"
 brew_install "mas" "/opt/homebrew/bin/mas"
-brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
 brew_install "mise" "/opt/homebrew/bin/mise"
-brew_install "1password-cli" "/opt/homebrew/bin/op"
+brew_install "orbstack" "/Applications/OrbStack.app"
+brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
 
 if [ ! -e "/Applications/Tailscale.app" ]; then
     echo -e "Installing ${GREEN}Tailscale${NOCOLOR}..."
