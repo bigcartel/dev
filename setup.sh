@@ -33,7 +33,7 @@ if [ ! -e "/opt/homebrew/bin/brew" ]; then
 else
     echo -e "${GREEN}Homebrew found. Updating/Upgrading...${NOCOLOR}"
     activate_brew
-    brew update && brew upgrade && brew upgrade --cask && brew cleanup
+    brew update && brew cleanup
 fi
 
 echo -e "\n${GREEN}### Installing packages ###${NOCOLOR}\n"
