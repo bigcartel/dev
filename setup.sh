@@ -43,15 +43,15 @@ function brew_install {
     if [ ! -e "$2" ]; then
         echo -e "\nInstalling ${GREEN}$1${NOCOLOR}..."
         brew install $1
-    else   
+    else
         echo -e "Skipping ${YELLOW}$1${NOCOLOR} - already installed"
     fi
 }
 
 if brew list libyaml &>/dev/null; then
-  echo "libyaml is already installed, skipping."
+  echo -e "Skipping ${YELLOW}libyaml${NOCOLOR} - already installed"
 else
-  echo "Installing libyaml..."
+  echo -e "\nInstalling ${GREEN}libyaml${NOCOLOR}..."
   brew install --quiet libyaml
 fi
 
