@@ -43,17 +43,24 @@ function brew_install {
     if [ ! -e "$2" ]; then
         echo -e "\nInstalling ${GREEN}$1${NOCOLOR}..."
         brew install $1
-    else   
+    else
         echo -e "Skipping ${YELLOW}$1${NOCOLOR} - already installed"
     fi
 }
 
-brew_install "orbstack" "/Applications/OrbStack.app"
+if brew list libyaml &>/dev/null; then
+  echo -e "Skipping ${YELLOW}libyaml${NOCOLOR} - already installed"
+else
+  echo -e "\nInstalling ${GREEN}libyaml${NOCOLOR}..."
+  brew install --quiet libyaml
+fi
+
+brew_install "1password-cli" "/opt/homebrew/bin/op"
 brew_install "gh" "/opt/homebrew/bin/gh"
 brew_install "mas" "/opt/homebrew/bin/mas"
-brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
 brew_install "mise" "/opt/homebrew/bin/mise"
-brew_install "1password-cli" "/opt/homebrew/bin/op"
+brew_install "orbstack" "/Applications/OrbStack.app"
+brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
 
 if [ ! -e "/Applications/Tailscale.app" ]; then
     echo -e "Installing ${GREEN}Tailscale${NOCOLOR}..."
