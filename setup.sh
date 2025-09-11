@@ -145,9 +145,6 @@ function ask_w_default {
 
 function get_prefs {
     ask_w_default "Where would you like BC code to live?" BC_HOME "~/code/bc"
-    echo -e "\n${YELLOW}Note: You probably want to say yes unless you have significant dotfile mods you are afraid to lose.${NOCOLOR}"
-    echo -e "${YELLOW}If you say no, you'll need to manually checkout dotmatrix and at least put it's helper scripts in your path${NOCOLOR}"
-    ask_w_default "Setup standard BC dotfiles? (y/n)" BC_USE_DOTMATRIX "y"
 }
 
 if [ -e ~/.bc_profile ]; then
@@ -172,22 +169,65 @@ fi
 
 pushd "$BC_HOME" > /dev/null
 
-if [ "$BC_USE_DOTMATRIX" != "y" ]; then
-    echo -e "${YELLOW}Skipping dotmatrix install${NOCOLOR}"
+echo -e "${GREEN}Installing cartel...${NOCOLOR}"
+
+if [ ! -e "$BC_HOME/cartel" ]; then
+    git clone git@github.com:bigcartel/cartel.git
 else
-    echo -e "${GREEN}Installing dotmatrix...${NOCOLOR}"
-
-    if [ ! -e "$BC_HOME/dotmatrix" ]; then
-        git clone git@github.com:bigcartel/dotmatrix.git
-        pushd dotmatrix > /dev/null
-        bin/install
-    else
-        pushd dotmatrix > /dev/null
-        bin/upgrade
-    fi
-
-    popd
+    echo -e "${YELLOW}cartel already exists, updating...${NOCOLOR}"
+    pushd cartel > /dev/null
+    git pull
+    popd > /dev/null
 fi
+
+CARTEL_ALIAS="alias cartel=\"$BC_HOME/cartel/cartel\""
+
+add_cartel_alias() {
+    local config_file="$1"
+    config_file=$(echo "$config_file" | sed "s|^~|$HOME|")
+
+    if ! grep -q "alias cartel=" "$config_file" 2>/dev/null; then
+        mkdir -p "$(dirname "$config_file")"
+        touch "$config_file"
+
+        echo "" >> "$config_file"
+        echo "$CARTEL_ALIAS" >> "$config_file"
+        echo -e "${GREEN}Added cartel alias to $config_file${NOCOLOR}"
+        return 0
+    else
+        echo -e "${YELLOW}cartel alias already exists in $config_file${NOCOLOR}"
+        return 1
+    fi
+}
+
+echo -e "\n${GREEN}Setting up cartel shell alias...${NOCOLOR}"
+echo -e "Which shell configuration file would you like to add the cartel alias to?"
+
+DEFAULT_CONFIG="~/.zshrc"
+if [[ "$SHELL" == *"bash"* ]]; then
+    if [ -f ~/.bash_profile ]; then
+        DEFAULT_CONFIG="~/.bash_profile"
+    else
+        DEFAULT_CONFIG="~/.bashrc"
+    fi
+fi
+
+echo -ne "${GREEN}Shell config file${NOCOLOR} [$DEFAULT_CONFIG]: "
+read SHELL_CONFIG_FILE
+
+if [ -z "$SHELL_CONFIG_FILE" ]; then
+    SHELL_CONFIG_FILE="$DEFAULT_CONFIG"
+fi
+
+if add_cartel_alias "$SHELL_CONFIG_FILE"; then
+    echo -e "${GREEN}The cartel command will be available in new shell sessions${NOCOLOR}"
+else
+    echo -e "${YELLOW}Note: You may need to restart your shell or run 'source $SHELL_CONFIG_FILE' to use the cartel command${NOCOLOR}"
+fi
+
+eval "$CARTEL_ALIAS"
+
+echo -e "${GREEN}cartel installed and available via 'cartel' command${NOCOLOR}"
 
 echo -e "\n${GREEN}We'll now launch Orbstack. When prompted select docker and complete any signin/configuration steps"
 echo -e "Return here when Orbstack is running to continue setup${NOCOLOR}\n"
