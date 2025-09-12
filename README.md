@@ -5,8 +5,8 @@ With the rise of [Orbstack](https://orbstack.dev) we can return to a more famili
 
 # Big Cartel Development Environment
 
-This repo now simply houses a shell script which installs base dependencies in an automated fashion and sets up the two core repos for you:
-[Dotmatrix](https://github.com/bigcartel/dotmatrix) (our tooling) and
+This repo houses a shell script which installs base dependencies in an automated fashion and sets up the core development tools for you:
+[cartel](https://github.com/bigcartel/cartel) (our infrastructure utility tool) and
 [compose-dev](https://github.com/bigcartel/compose-dev) (our apps) in Docker for developing on macOS.
 
 # Bootstrapping
