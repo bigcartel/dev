@@ -180,9 +180,7 @@ else
     popd > /dev/null
 fi
 
-CARTEL_ALIAS="alias cartel=\"$BC_HOME/cartel/cartel\""
-
-add_cartel_alias() {
+add_cartel_to_path() {
     local config_file="$1"
     config_file=$(echo "$config_file" | sed "s|^~|$HOME|")
 
@@ -191,7 +189,7 @@ add_cartel_alias() {
         touch "$config_file"
 
         echo "" >> "$config_file"
-        echo "$CARTEL_ALIAS" >> "$config_file"
+        echo "export PATH=\"$BC_HOME/cartel:$PATH\"" >> "$config_file"
         echo -e "${GREEN}Added cartel alias to $config_file${NOCOLOR}"
         return 0
     else
@@ -219,7 +217,7 @@ if [ -z "$SHELL_CONFIG_FILE" ]; then
     SHELL_CONFIG_FILE="$DEFAULT_CONFIG"
 fi
 
-if add_cartel_alias "$SHELL_CONFIG_FILE"; then
+if add_cartel_to_path "$SHELL_CONFIG_FILE"; then
     echo -e "${GREEN}The cartel command will be available in new shell sessions${NOCOLOR}"
 else
     echo -e "${YELLOW}Note: You may need to restart your shell or run 'source $SHELL_CONFIG_FILE' to use the cartel command${NOCOLOR}"
