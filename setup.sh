@@ -180,16 +180,18 @@ else
     popd > /dev/null
 fi
 
-add_cartel_to_path() {
+add_to_dotfiles() {
     local config_file="$1"
     config_file=$(echo "$config_file" | sed "s|^~|$HOME|")
 
-    if ! grep -q "alias cartel=" "$config_file" 2>/dev/null; then
+    if ! grep -q "# Added by bigcartel dev script" "$config_file" 2>/dev/null; then
         mkdir -p "$(dirname "$config_file")"
         touch "$config_file"
 
         echo "" >> "$config_file"
-        echo "export PATH=\"$BC_HOME/cartel:$PATH\"" >> "$config_file"
+        echo "# Added by bigcartel dev script" >> "$config_file"
+        echo "export PATH=\"$BC_HOME/cartel:\$PATH\"" >> "$config_file"
+        echo "export BIG_CARTEL_DOCKER_COMPOSE_DIR=\"$BC_HOME\"/compose-dev" >> "$config_file"
         echo -e "${GREEN}Added cartel alias to $config_file${NOCOLOR}"
         return 0
     else
@@ -198,8 +200,8 @@ add_cartel_to_path() {
     fi
 }
 
-echo -e "\n${GREEN}Setting up cartel shell alias...${NOCOLOR}"
-echo -e "Which shell configuration file would you like to add the cartel alias to?"
+echo -e "\n${GREEN}Adding cartel to PATH...${NOCOLOR}"
+echo -e "Which shell configuration file would you like to add to?"
 
 DEFAULT_CONFIG="~/.zshrc"
 if [[ "$SHELL" == *"bash"* ]]; then
@@ -217,13 +219,10 @@ if [ -z "$SHELL_CONFIG_FILE" ]; then
     SHELL_CONFIG_FILE="$DEFAULT_CONFIG"
 fi
 
-if add_cartel_to_path "$SHELL_CONFIG_FILE"; then
+if add_to_dotfiles "$SHELL_CONFIG_FILE"; then
     echo -e "${GREEN}The cartel command will be available in new shell sessions${NOCOLOR}"
-else
     echo -e "${YELLOW}Note: You may need to restart your shell or run 'source $SHELL_CONFIG_FILE' to use the cartel command${NOCOLOR}"
 fi
-
-eval "$CARTEL_ALIAS"
 
 echo -e "${GREEN}cartel installed and available via 'cartel' command${NOCOLOR}"
 
