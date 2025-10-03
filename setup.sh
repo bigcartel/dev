@@ -191,7 +191,7 @@ add_to_dotfiles() {
         echo "" >> "$config_file"
         echo "# Added by bigcartel dev script" >> "$config_file"
         echo "export PATH=\"$BC_HOME/cartel:\$PATH\"" >> "$config_file"
-        echo "export BIG_CARTEL_DOCKER_COMPOSE_DIR=\"$BC_HOME\"/compose-dev" >> "$config_file"
+        echo "export BIG_CARTEL_DOCKER_COMPOSE_DIR=\"$BC_HOME/compose-dev\"" >> "$config_file"
         echo -e "${GREEN}Added cartel alias to $config_file${NOCOLOR}"
         return 0
     else
