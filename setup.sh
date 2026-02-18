@@ -64,7 +64,7 @@ brew_install "stripe/stripe-cli/stripe" "/opt/homebrew/bin/stripe"
 
 if [ ! -e "/Applications/Tailscale.app" ]; then
     echo -e "Installing ${GREEN}Tailscale${NOCOLOR}..."
-    mas install 1475387142 || echo -e "${RED}Tailscale not installed - you'll need to do this from the Mac App Store manually${NOCOLOR}"
+    mas get 1475387142 || echo -e "${RED}Tailscale not installed - you'll need to do this from the Mac App Store manually${NOCOLOR}"
 fi
 
 echo -e "\n${GREEN}### Setting up SSH ###${NOCOLOR}\n"
